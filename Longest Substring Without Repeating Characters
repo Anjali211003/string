@@ -1,0 +1,55 @@
+/* solution in C++  */
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char,int>mp;
+        int i=0;
+        int j=0;
+        int mx=0;
+        while(j<s.size())
+        {
+            mp[s[j]]++;
+            if(mp.size()>(j-i+1))
+            j++;
+            else if(mp.size()==(j-i+1))
+              {mx=max(mx,(j-i+1));
+              j++;}
+            else if(mp.size()<(j-i+1))
+            {
+                while(mp.size()<(j-i+1))
+                {
+                    mp[s[i]]--;
+                
+            
+                if(mp[s[i]]==0)
+                {
+                    mp.erase(s[i]);
+                    }
+                    i++;
+                }
+                j++;
+            }
+        }
+        return mx;
+    }
+};
+
+# solution in python using set
+ charset=set()
+        ans=0
+        j=0
+        i=0
+        for j in range(len(s)):
+            if s[j] not in charset:
+                charset.add(s[j])
+                ans= max(ans,j-i + 1)
+            else:
+                while s[j] in charset:
+                    charset.remove(s[i])
+                    i += 1
+                charset.add(s[j])
+        
+        return ans
+
+
